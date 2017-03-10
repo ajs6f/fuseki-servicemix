@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.si</groupId>
+  <artifactId>fuseki-servicemix</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>Apache Jena Fuseki</name>
+  <description>Apache Jena Fuseki packaged for Apache ServiceMix</description>
+
+  <properties>
+    <fuseki.version>2.5.0</fuseki.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.jena</groupId>
+      <artifactId>jena-fuseki-war</artifactId>
+      <version>${fuseki.version}</version>
+      <type>war</type>
+      <exclusions>
+        <exclusion>
+          <groupId>xerces</groupId>
+          <artifactId>xercesImpl</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <overlays>
+            <overlay>
+              <groupId>org.apache.jena</groupId>
+              <artifactId>jena-fuseki-war</artifactId>
+              <excludes>
+                <exclude>WEB-INF/lib/xercesImpl-2.11.0.jar</exclude>
+              </excludes>
+            </overlay>
+          </overlays>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
